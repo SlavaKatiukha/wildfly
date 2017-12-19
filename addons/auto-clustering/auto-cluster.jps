@@ -85,7 +85,7 @@
           "path": "${globals.path}",
           "protocol": "nfs",
           "sourcePath": "${globals.path}",
-          "sourceNodeId": "${nodes.ctrl}",
+          "sourceNodeId": "${this.ctrlNodeId}",
           "name": "SSH Keys",
           "readOnly": false
         }
