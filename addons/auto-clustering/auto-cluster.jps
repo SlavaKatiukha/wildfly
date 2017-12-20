@@ -80,8 +80,8 @@
           "alias": "ctrl"
         },
         {
-          "api": "env.file.AddMountPointByGroup",
-          "nodeGroup": "cp",
+          "api": "env.file.AddMountPointById",
+          "nodeId": "${@i.id}",
           "path": "${globals.path}",
           "protocol": "nfs",
           "sourcePath": "${globals.path}",
