@@ -88,15 +88,6 @@
           "sourceNodeId": "${this.ctrlNodeId}",
           "name": "SSH Keys",
           "readOnly": false
-        },
-        {
-          "api": "env.control.ExecCmdById",
-          "nodeId": "${@i.id}",
-          "commandList": [
-            {
-              "command": "/usr/sbin/setpassonmaster"
-            }
-          ]
         }
       ]
     },
