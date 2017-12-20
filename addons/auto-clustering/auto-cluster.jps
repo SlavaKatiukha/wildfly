@@ -88,6 +88,15 @@
           "sourceNodeId": "${this.ctrlNodeId}",
           "name": "SSH Keys",
           "readOnly": false
+        },
+        {
+          "api": "env.control.ExecCmdById",
+          "nodeId": "${@i.nodeId}",
+          "commandList": [
+            {
+              "command": "setpassonmaster"
+            }
+          ]
         }
       ]
     },
@@ -106,9 +115,5 @@
         "command": "sed -i 's#/console#https://node${this.ctrlNodeId}-${env.domain}/console#g' ${STACK_PATH}/welcome-content/index.html"
       }
     }
-  },
-  "success": {
-    "text": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:9990)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
-    "email": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:9990)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
   }
 }
