@@ -115,5 +115,9 @@
         "command": "sed -i 's#/console#https://node${this.ctrlNodeId}-${env.domain}/console#g' ${STACK_PATH}/welcome-content/index.html"
       }
     }
+  },
+    "success": {
+    "text": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
+    "email": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
   }
 }
