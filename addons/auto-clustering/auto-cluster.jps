@@ -91,10 +91,10 @@
         },
         {
           "api": "env.control.ExecCmdById",
-          "nodeId": "${@i.nodeId}",
+          "nodeId": "${@i.id}",
           "commandList": [
             {
-              "command": "setpassonmaster"
+              "command": "/usr/sbin/setpassonmaster"
             }
           ]
         }
