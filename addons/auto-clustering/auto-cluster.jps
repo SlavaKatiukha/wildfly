@@ -88,15 +88,6 @@
           "sourceNodeId": "${this.ctrlNodeId}",
           "name": "SSH Keys",
           "readOnly": false
-        },
-        {
-          "api": "env.control.ExecCmdById",
-          "nodeId": "${@i.id}",
-          "commandList": [
-            {
-              "command": "/usr/bin/sed -i s/CTRL_WORKER_PASSWORD=\".*\"/CTRL_WORKER_PASSWORD=\"${globals.adminPswd}\"/ /.jelenv; service wildfly restart;"
-            }
-          ]
         }
       ]
     },
