@@ -11,7 +11,7 @@
   "globals": {
     "path": "/home/jelastic/.ssh"
   },
-  "baseUrl": "https://raw.githubusercontent.com/siruslan/wildfly/master",
+  "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master",
   "onInstall": [
     {
       "if (!nodes.ctrl && nodes.cp.length > 1)": "buildCluster"
@@ -108,7 +108,7 @@
     }
   },
     "success": {
-    "text": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
-    "email": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
+    "text": "[Admin Console](http://node${ctrlNodeId}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
+    "email": "[Admin Console](http://node${ctrlNodeId}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
   }
 }
