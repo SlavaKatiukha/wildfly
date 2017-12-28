@@ -10,6 +10,7 @@
   },
   "globals": {
     "path": "/home/jelastic/.ssh",
+    "workerUser": "worker",
     "workerPswd": "${fn.password}"
   },
   "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master",
@@ -40,6 +41,7 @@
           },
           "dockerEnvVars": {
             "CTRL": "true",
+            "WORKER_USER": "${globals.workerUser}",
             "WORKER_PASSWORD": "${globals.workerPswd}"
           }
         }
@@ -76,7 +78,10 @@
       "restartContainers[cp]"
     ],
     "addWokerUser": {
-        "cmd[${this.ctrlNodeId}]": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
+       "cmdViaApiById": {
+           "nodeId": "${this.ctrlNodeId}",
+           "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
+        }
     },
     "linkLayers": {
       "forEach(nodes.cp)": [
