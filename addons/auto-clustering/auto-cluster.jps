@@ -42,7 +42,8 @@
           "dockerEnvVars": {
             "CTRL": "true",
             "WORKER_USER": "${globals.workerUser}",
-            "WORKER_PASSWORD": "${globals.workerPswd}"
+            "WORKER_PASSWORD": "${globals.workerPswd}",
+            "JBOSS_MODE": "domain"
           }
         }
       },
@@ -121,7 +122,7 @@
     }
   },
     "success": {
-    "text": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
-    "email": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
+    "text": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4848)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
+    "email": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4848)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
   }
 }
