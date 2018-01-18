@@ -34,7 +34,14 @@
       "if (nodes.ctrl)": "setJavaMemoryOpts"
     }
   ],
-  "onAfterClone": "restartContainers[cp]",
+  "onAfterClone": [
+    {
+      "install":{
+        "jps":"${baseUrl}/manifest.jps?_r=${fn.random}",
+        "envName":"${event.response.env.envName}"
+      }
+    }
+  ],
   "actions": {
     "setJavaMemoryOpts": {
       "if (nodes.ctrl)": {
