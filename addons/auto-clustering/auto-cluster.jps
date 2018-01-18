@@ -16,25 +16,30 @@
   "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master",
   "onInstall": [
     {
-      "if (!nodes.ctrl && nodes.cp.length > 1)": "buildCluster"
+      "if (!nodes.ctrl && nodes.cp.length > 1)": ["buildCluster", "setJavaMemoryOpts"]
     }
   ],
   "onBeforeServiceScaleOut[cp]": [
     {
-      "if (!nodes.ctrl)": "buildCluster"
+      "if (!nodes.ctrl)": ["buildCluster", "setJavaMemoryOpts"]
     }
   ],
-  "onAfterSetCloudletCount[cp]": {
-    "if (nodes.ctrl)": {
-      "forEach(nodes.cp)": {
-        "if (${@i.ismaster})": {
-          "cmd[${@i.id}]": "$STACK_PATH/bin/domainMemoryConfig.sh; service wildfly restart;"
-        }
-      }
+  "onAfterSetCloudletCount[cp]": [
+    {
+      "if (nodes.ctrl)": "setJavaMemoryOpts"
     }
-  },
+  ],
   "onAfterClone": "restartContainers[cp]",
   "actions": {
+    "setJavaMemoryOpts": {
+      "if (nodes.ctrl)": {
+        "forEach(nodes.cp)": {
+          "if (${@i.ismaster})": {
+            "cmd[${@i.id}]": "$STACK_PATH/bin/domainMemoryConfig.sh; service wildfly reload;"
+          }
+        }
+      }
+    },
     "buildCluster": [
       {
         "addNodes": {
@@ -68,11 +73,13 @@
         ]
       }
     ],
-    "setupCtrl": [{
+    "setupCtrl": [
+      {
         "addWokerUser": {
           "ctrlNodeId": "${this.ctrlNodeId}"
-         }
-      },{
+        }
+      },
+      {
         "linkLayers": {
           "ctrlNodeId": "${this.ctrlNodeId}"
         }
@@ -88,10 +95,10 @@
       "restartContainers[cp]"
     ],
     "addWokerUser": {
-       "cmdViaApiById": {
-           "nodeId": "${this.ctrlNodeId}",
-           "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
-        }
+      "cmdViaApiById": {
+        "nodeId": "${this.ctrlNodeId}",
+        "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
+      }
     },
     "linkLayers": {
       "forEach(nodes.cp)": [
@@ -130,7 +137,7 @@
       }
     }
   },
-    "success": {
+  "success": {
     "text": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
     "email": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
   }
