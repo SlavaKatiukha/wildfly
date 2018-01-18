@@ -16,7 +16,10 @@
   "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master",
   "onInstall": [
     {
-      "if (!nodes.ctrl && nodes.cp.length > 1)": ["buildCluster", "setJavaMemoryOpts"]
+      "if (!nodes.ctrl && nodes.cp.length > 1)": [
+        "buildCluster",
+        "setJavaMemoryOpts"
+      ]
     }
   ],
   "onBeforeServiceScaleOut[cp]": [
@@ -36,9 +39,9 @@
   ],
   "onAfterClone": [
     {
-      "install":{
-        "jps":"${baseUrl}/manifest.jps?_r=${fn.random}",
-        "envName":"${event.response.env.envName}"
+      "install": {
+        "jps": "${baseUrl}/manifest.jps?_r=${fn.random}",
+        "envName": "${event.response.env.envName}"
       }
     }
   ],
@@ -83,6 +86,13 @@
           "  }",
           "}"
         ]
+      },
+      {
+        "forEach(nodes.cp)": {
+          "if (${@i.ismaster})": {
+            "cmd[${@i.id}]": "$STACK_PATH/bin/domainMemoryConfig.sh;"
+          }
+        }
       }
     ],
     "setupCtrl": [
