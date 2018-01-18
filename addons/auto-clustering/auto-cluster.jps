@@ -21,7 +21,12 @@
   ],
   "onBeforeServiceScaleOut[cp]": [
     {
-      "if (!nodes.ctrl)": ["buildCluster", "setJavaMemoryOpts"]
+      "if (!nodes.ctrl)": "buildCluster"
+    }
+  ],
+  "onAfterServiceScaleOut[cp]": [
+    {
+      "if (nodes.ctrl)": "setJavaMemoryOpts"
     }
   ],
   "onAfterSetCloudletCount[cp]": [
