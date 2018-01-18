@@ -35,7 +35,7 @@
       "if (nodes.ctrl)": {
         "forEach(nodes.cp)": {
           "if (${@i.ismaster})": {
-            "cmd[${@i.id}]": "$STACK_PATH/bin/domainMemoryConfig.sh; service wildfly reload;"
+            "cmd[${@i.id}]": "$STACK_PATH/bin/domainMemoryConfig.sh;"
           }
         }
       }
