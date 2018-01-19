@@ -17,10 +17,10 @@
   "onInstall": [
     {
       "if (!nodes.ctrl && nodes.cp.length > 1)": [
-        "buildCluster",
-        "setJavaMemoryOpts"
+        "buildCluster"
       ]
-    }
+    },
+    "setJavaMemoryOpts"
   ],
   "onBeforeServiceScaleOut[cp]": [
     {
