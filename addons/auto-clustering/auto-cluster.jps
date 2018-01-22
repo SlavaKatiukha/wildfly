@@ -49,6 +49,10 @@
     "if (nodes.ctrl)": {
       "forEach(nodes.cp)": {
         "cmd[${@i.id}]": "service wildfly restart;"
+      },
+      "cmdViaApiById": {
+        "nodeId": "${nodes.ctrl}",
+        "command": "service wildfly restart;"
       }
     }
   },
