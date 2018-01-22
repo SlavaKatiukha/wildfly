@@ -46,7 +46,7 @@
     }
   ],
   "onAfterRedeployContainer[cp]": {
-    "if (nodes.das)": {
+    "if (nodes.ctrl)": {
       "forEach(nodes.cp)": {
         "cmd[${@i.id}]": "service wildfly restart;"
       }
