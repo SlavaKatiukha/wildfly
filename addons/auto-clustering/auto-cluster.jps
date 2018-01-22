@@ -60,7 +60,7 @@
               "nodeId": "${nodes.ctrl.first.id}",
               "user": "root",
               "commands": [
-                "service wildfly restart"
+                "jem service restart"
               ]
             }
           }
