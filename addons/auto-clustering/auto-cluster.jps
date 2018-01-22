@@ -45,6 +45,13 @@
       }
     }
   ],
+  "onAfterRedeployContainer[cp]": {
+    "if (nodes.das)": {
+      "forEach(nodes.cp)": {
+        "cmd[${@i.id}]": "service wildfly restart;"
+      }
+    }
+  },
   "actions": {
     "setJavaMemoryOpts": {
       "forEach(nodes.cp)": {
