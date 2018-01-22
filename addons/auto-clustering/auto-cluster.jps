@@ -14,161 +14,187 @@
     "workerPswd": "${fn.password}"
   },
   "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master",
-  "onInstall": [
-    {
-      "if (!nodes.ctrl && nodes.cp.length > 1)": [
-        "buildCluster"
-      ]
+  "onInstall": {
+    "onInstall": [
+      {
+        "if (!nodes.ctrl && nodes.cp.length > 1)": [
+          "buildCluster"
+        ]
+      },
+      "setJavaMemoryOpts"
+    ],
+    "onBeforeServiceScaleOut[cp]": [
+      {
+        "if (!nodes.ctrl)": "buildCluster"
+      }
+    ],
+    "onAfterServiceScaleOut[cp]": [
+      {
+        "if (nodes.ctrl)": "setJavaMemoryOpts"
+      }
+    ],
+    "onAfterSetCloudletCount[cp]": [
+      {
+        "if (nodes.ctrl)": "setJavaMemoryOpts"
+      }
+    ],
+    "onAfterClone": [
+      {
+        "install": {
+          "jps": "${baseUrl}/manifest.jps?_r=${fn.random}",
+          "envName": "${event.response.env.envName}"
+        }
+      }
+    ],
+    "onAfterRedeployContainer[cp]": {
+      "forEach(nodes.cp)": {
+        "cmd": {
+          "nodeId": "${@i.id}",
+          "user": "root",
+          "commands": [
+            "service wildfly restart"
+          ]
+        }
+      }
     },
-    "setJavaMemoryOpts"
-  ],
-  "onBeforeServiceScaleOut[cp]": [
-    {
-      "if (!nodes.ctrl)": "buildCluster"
+    "onAfterRedeployContainer[extra]": {
+      "forEach(nodes.extra)": {
+        "cmd": {
+          "nodeId": "${@i.id}",
+          "user": "root",
+          "commands": [
+            "service wildfly restart"
+          ]
+        }
+      }
+    },
+    "actions": {
+      "setJavaMemoryOpts": {
+        "forEach(nodes.cp)": {
+          "if (${@i.ismaster})": {
+            "cmd": {
+              "nodeId": "${@i.id}",
+              "user": "root",
+              "commands": [
+                "$STACK_PATH/bin/domainMemoryConfig.sh;"
+              ]
+            }
+          }
+        }
+      },
+      "buildCluster": [
+        {
+          "addNodes": {
+            "fixedCloudlets": "${nodes.cp.first.fixedCloudlets}",
+            "flexibleCloudlets": 8,
+            "displayName": "Controller",
+            "nodeType": "docker",
+            "nodeGroup": "ctrl",
+            "dockerName": "${nodes.cp.first.customitem.dockerName}",
+            "dockerTag": "${nodes.cp.first.customitem.dockerTag}",
+            "metadata": {
+              "layer": "ctrl"
+            },
+            "dockerEnvVars": {
+              "CTRL": "true",
+              "WORKER_USER": "${globals.workerUser}",
+              "WORKER_PASSWORD": "${globals.workerPswd}",
+              "JBOSS_MODE": "domain"
+            }
+          }
+        },
+        {
+          "script": [
+            "var resp = jelastic.environment.control.GetEnvInfo('${env.envName}', session)",
+            "if (resp.result != 0) return resp",
+            "for (var i = 0, node; node = resp.nodes[i]; i++) {",
+            "  if (node.nodeGroup == 'ctrl' && node.ismaster) {",
+            "    return { result: 0, onAfterReturn : {setupCtrl: {ctrlNodeId: node.id}}}",
+            "  }",
+            "}"
+          ]
+        }
+      ],
+      "setupCtrl": [
+        {
+          "addWokerUser": {
+            "ctrlNodeId": "${this.ctrlNodeId}"
+          }
+        },
+        {
+          "linkLayers": {
+            "ctrlNodeId": "${this.ctrlNodeId}"
+          }
+        },
+        {
+          "forEach(nodes.cp)": {
+            "updateLink2CtrlConsole": {
+              "nodeId": "${@i.id}",
+              "ctrlNodeId": "${this.ctrlNodeId}"
+            }
+          }
+        },
+        "restartContainers[cp]"
+      ],
+      "addWokerUser": {
+        "cmdViaApiById": {
+          "nodeId": "${this.ctrlNodeId}",
+          "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
+        }
+      },
+      "linkLayers": {
+        "forEach(nodes.cp)": [
+          {
+            "api": "env.control.LinkDockerNodes",
+            "sourceNodeId": "${this.ctrlNodeId}",
+            "targetNodeId": "${@i.id}",
+            "groupAlias": "ctrl",
+            "alias": "ctrl"
+          },
+          {
+            "api": "env.file.AddMountPointById",
+            "nodeId": "${@i.id}",
+            "path": "${globals.path}",
+            "protocol": "nfs",
+            "sourcePath": "${globals.path}",
+            "sourceNodeId": "${this.ctrlNodeId}",
+            "name": "SSH Keys",
+            "readOnly": false
+          }
+        ]
+      },
+      "cmdViaApiById": {
+        "api": "env.control.ExecCmdById",
+        "nodeId": "${this.nodeId}",
+        "commandList": [
+          {
+            "command": "${this.command}"
+          }
+        ]
+      },
+      "updateLink2CtrlConsole": {
+        "cmdViaApiById": {
+          "nodeId": "${this.nodeId}",
+          "command": "sed -i \"s#/console#http://node${this.ctrlNodeId}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html"
+        }
+      }
+    },
+    "success": {
+      "text": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
+      "email": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
     }
-  ],
-  "onAfterServiceScaleOut[cp]": [
-    {
-      "if (nodes.ctrl)": "setJavaMemoryOpts"
-    }
-  ],
-  "onAfterSetCloudletCount[cp]": [
-    {
-      "if (nodes.ctrl)": "setJavaMemoryOpts"
-    }
-  ],
+  },
   "onAfterClone": [
+    {
+      "api": "environment.control.SendEnvCreatedEmail",
+      "appid": "${event.response.env.appid}",
+      "isImport": true
+    },
     {
       "install": {
         "jps": "${baseUrl}/manifest.jps?_r=${fn.random}",
         "envName": "${event.response.env.envName}"
       }
     }
-  ],
-  "onAfterRedeployContainer[cp]": {
-    "forEach(nodes.cp)": {
-      "cmd": {
-        "nodeId": "${@i.id}",
-        "user": "root",
-        "commands": [
-          "service wildfly restart"
-        ]
-      }
-    }
-  },
-  "actions": {
-    "setJavaMemoryOpts": {
-      "forEach(nodes.cp)": {
-        "if (${@i.ismaster})": {
-          "cmd": {
-            "nodeId": "${@i.id}",
-            "user": "root",
-            "commands": [
-              "$STACK_PATH/bin/domainMemoryConfig.sh;"
-            ]
-          }
-        }
-      }
-    },
-    "buildCluster": [
-      {
-        "addNodes": {
-          "fixedCloudlets": "${nodes.cp.first.fixedCloudlets}",
-          "flexibleCloudlets": 8,
-          "displayName": "Controller",
-          "nodeType": "docker",
-          "nodeGroup": "ctrl",
-          "dockerName": "${nodes.cp.first.customitem.dockerName}",
-          "dockerTag": "${nodes.cp.first.customitem.dockerTag}",
-          "metadata": {
-            "layer": "ctrl"
-          },
-          "dockerEnvVars": {
-            "CTRL": "true",
-            "WORKER_USER": "${globals.workerUser}",
-            "WORKER_PASSWORD": "${globals.workerPswd}",
-            "JBOSS_MODE": "domain"
-          }
-        }
-      },
-      {
-        "script": [
-          "var resp = jelastic.environment.control.GetEnvInfo('${env.envName}', session)",
-          "if (resp.result != 0) return resp",
-          "for (var i = 0, node; node = resp.nodes[i]; i++) {",
-          "  if (node.nodeGroup == 'ctrl' && node.ismaster) {",
-          "    return { result: 0, onAfterReturn : {setupCtrl: {ctrlNodeId: node.id}}}",
-          "  }",
-          "}"
-        ]
-      }
-    ],
-    "setupCtrl": [
-      {
-        "addWokerUser": {
-          "ctrlNodeId": "${this.ctrlNodeId}"
-        }
-      },
-      {
-        "linkLayers": {
-          "ctrlNodeId": "${this.ctrlNodeId}"
-        }
-      },
-      {
-        "forEach(nodes.cp)": {
-          "updateLink2CtrlConsole": {
-            "nodeId": "${@i.id}",
-            "ctrlNodeId": "${this.ctrlNodeId}"
-          }
-        }
-      },
-      "restartContainers[cp]"
-    ],
-    "addWokerUser": {
-      "cmdViaApiById": {
-        "nodeId": "${this.ctrlNodeId}",
-        "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
-      }
-    },
-    "linkLayers": {
-      "forEach(nodes.cp)": [
-        {
-          "api": "env.control.LinkDockerNodes",
-          "sourceNodeId": "${this.ctrlNodeId}",
-          "targetNodeId": "${@i.id}",
-          "groupAlias": "ctrl",
-          "alias": "ctrl"
-        },
-        {
-          "api": "env.file.AddMountPointById",
-          "nodeId": "${@i.id}",
-          "path": "${globals.path}",
-          "protocol": "nfs",
-          "sourcePath": "${globals.path}",
-          "sourceNodeId": "${this.ctrlNodeId}",
-          "name": "SSH Keys",
-          "readOnly": false
-        }
-      ]
-    },
-    "cmdViaApiById": {
-      "api": "env.control.ExecCmdById",
-      "nodeId": "${this.nodeId}",
-      "commandList": [
-        {
-          "command": "${this.command}"
-        }
-      ]
-    },
-    "updateLink2CtrlConsole": {
-      "cmdViaApiById": {
-        "nodeId": "${this.nodeId}",
-        "command": "sed -i \"s#/console#http://node${this.ctrlNodeId}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html"
-      }
-    }
-  },
-  "success": {
-    "text": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}",
-    "email": "[Admin Console](http://node${nodes.ctrl.first.id}-${env.domain}:4949)\nAdmin User: admin\nPassword: ${globals.adminPswd}"
-  }
+  ]
 }
