@@ -65,7 +65,7 @@
         "onAfterRedeployContainer[extra]": {
           "if (nodes.ctrl)": {
             "cmd": {
-              "nodeId": "${nodes.ctrl.id}",
+              "nodeId": "${nodes.ctrl.first.id}",
               "user": "root",
               "commands": [
                 "service wildfly restart"
