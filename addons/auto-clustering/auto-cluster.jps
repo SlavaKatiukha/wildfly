@@ -62,17 +62,6 @@
             }
           }
         },
-        "onAfterRedeployContainer[extra]": {
-          "forEach(nodes.extra)": {
-            "cmd": {
-              "nodeId": "${@i.id}",
-              "user": "root",
-              "commands": [
-                "service wildfly restart"
-              ]
-            }
-          }
-        },
         "actions": {
           "setJavaMemoryOpts": {
             "forEach(nodes.cp)": {
