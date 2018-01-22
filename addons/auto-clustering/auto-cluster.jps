@@ -60,7 +60,9 @@
                 "service wildfly restart"
               ]
             }
-          },
+          }
+        },
+        "onAfterRedeployContainer[extra]": {
           "if (nodes.ctrl)": {
             "cmd": {
               "nodeId": "${nodes.ctrl.id}",
