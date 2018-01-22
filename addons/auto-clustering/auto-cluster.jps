@@ -60,6 +60,15 @@
                 "service wildfly restart"
               ]
             }
+          },
+          "if (nodes.ctrl)": {
+            "cmd": {
+              "nodeId": "${nodes.ctrl.id}",
+              "user": "root",
+              "commands": [
+                "service wildfly restart"
+              ]
+            }
           }
         },
         "actions": {
