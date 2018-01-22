@@ -47,14 +47,26 @@
   ],
   "onAfterRedeployContainer[cp]": {
     "forEach(nodes.cp)": {
-      "cmd[${@i.id}]": "service wildfly restart;"
+      "cmd": {
+        "nodeId": "${@i.id}",
+        "user": "root",
+        "commands": [
+          "service wildfly restart"
+        ]
+      }
     }
   },
   "actions": {
     "setJavaMemoryOpts": {
       "forEach(nodes.cp)": {
         "if (${@i.ismaster})": {
-          "cmd[${@i.id}]": "$STACK_PATH/bin/domainMemoryConfig.sh;"
+          "cmd": {
+            "nodeId": "${@i.id}",
+            "user": "root",
+            "commands": [
+              "$STACK_PATH/bin/domainMemoryConfig.sh;"
+            ]
+          }
         }
       }
     },
