@@ -43,14 +43,6 @@
             "if (nodes.ctrl)": "setJavaMemoryOpts"
           }
         ],
-        "onAfterClone": [
-          {
-            "install": {
-              "jps": "${baseUrl}/manifest.jps?_r=${fn.random}",
-              "envName": "${event.response.env.envName}"
-            }
-          }
-        ],
         "onAfterRedeployContainer[cp]": {
           "forEach(nodes.cp)": {
             "cmd": {
@@ -62,7 +54,7 @@
             }
           }
         },
-        "onAfterRedeployContainer[extra]": {
+        "onAfterRedeployContainer[ctrl]": {
           "if (nodes.ctrl)": {
             "cmd": {
               "nodeId": "${nodes.ctrl.first.id}",
