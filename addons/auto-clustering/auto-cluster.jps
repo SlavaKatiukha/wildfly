@@ -60,7 +60,7 @@
               "nodeId": "${nodes.ctrl.first.id}",
               "user": "root",
               "commands": [
-                "service wildfly restart; /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 9990;"
+                "service wildfly restart; /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 4949;"
               ]
             }
           }
