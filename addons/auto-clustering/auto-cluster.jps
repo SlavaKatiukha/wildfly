@@ -83,7 +83,7 @@
             {
               "addNodes": {
                 "fixedCloudlets": "${nodes.cp.first.fixedCloudlets}",
-                "flexibleCloudlets": 8,
+                "flexibleCloudlets": 6,
                 "displayName": "Controller",
                 "nodeType": "docker",
                 "nodeGroup": "ctrl",
