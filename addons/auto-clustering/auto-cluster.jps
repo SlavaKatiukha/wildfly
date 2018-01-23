@@ -23,14 +23,15 @@
         "onInstall": [
           {
             "if (!nodes.ctrl && nodes.cp.length > 1)": [
-              "buildCluster"
+              "buildCluster",
+              "migrateAppsToDomain"
             ]
           },
           "setJavaMemoryOpts"
         ],
         "onBeforeServiceScaleOut[cp]": [
           {
-            "if (!nodes.ctrl)": "buildCluster"
+            "if (!nodes.ctrl)": [ "buildCluster", "migrateAppsToDomain" ]
           }
         ],
         "onAfterServiceScaleOut[cp]": [
