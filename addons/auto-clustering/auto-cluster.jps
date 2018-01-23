@@ -73,7 +73,7 @@
                   "nodeId": "${@i.id}",
                   "user": "root",
                   "commands": [
-                    "$STACK_PATH/bin/domainMemoryConfig.sh;"
+                    "domainMemoryConfig;"
                   ]
                 }
               }
