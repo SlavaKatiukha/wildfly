@@ -79,6 +79,19 @@
               }
             }
           },
+          "migrateAppsToDomain": {
+            "forEach(nodes.cp)": {
+              "if (${@i.ismaster})": {
+                "cmd": {
+                  "nodeId": "${@i.id}",
+                  "user": "root",
+                  "commands": [
+                    "migrate_deployments;"
+                  ]
+                }
+              }
+            }
+          },
           "buildCluster": [
             {
               "addNodes": {
