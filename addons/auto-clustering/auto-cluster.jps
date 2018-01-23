@@ -132,6 +132,11 @@
               }
             },
             {
+              "fixAdminPasswd": {
+                "ctrlNodeId": "${this.ctrlNodeId}"
+              }
+            },
+            {
               "linkLayers": {
                 "ctrlNodeId": "${this.ctrlNodeId}"
               }
@@ -150,6 +155,12 @@
             "cmdViaApiById": {
               "nodeId": "${this.ctrlNodeId}",
               "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
+            }
+          },
+          "fixAdminUser": {
+            "cmdViaApiById": {
+              "nodeId": "${this.ctrlNodeId}",
+              "command": "$STACK_PATH/bin/add-user.sh admin ${globals.adminPswd}"
             }
           },
           "linkLayers": {
