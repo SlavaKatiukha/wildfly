@@ -18,7 +18,7 @@
     "install": {
       "jps": {
         "type": "update",
-        "name": "Auto-Cluster",
+        "name": "Wildfly Auto-Cluster",
         "envName": "${env.envName}",
         "onInstall": [
           {
@@ -30,7 +30,10 @@
         ],
         "onBeforeServiceScaleOut[cp]": [
           {
-            "if (!nodes.ctrl)": [ "buildCluster", "migrateToDomain" ]
+            "if (!nodes.ctrl)": [
+              "buildCluster",
+              "migrateToDomain"
+            ]
           }
         ],
         "onAfterServiceScaleOut[cp]": [
@@ -158,9 +161,10 @@
             }
           },
           "fixAdminUser": {
-            "cmd[${nodes.ctrl.first.id}]": [
-                "$STACK_PATH/bin/add-user.sh admin ${globals.adminPswd}"
-            ]
+            "cmdViaApiById": {
+              "nodeId": "${this.ctrlNodeId}",
+              "command": "$STACK_PATH/bin/add-user.sh admin ${globals.adminPswd}"
+            }
           },
           "linkLayers": {
             "forEach(nodes.cp)": [
