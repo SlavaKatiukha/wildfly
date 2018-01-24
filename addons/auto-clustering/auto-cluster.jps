@@ -158,7 +158,7 @@
             }
           },
           "fixAdminUser": {
-            "cmd[${this.id}]": [
+            "cmd[${nodes.ctrl.first.id}]": [
                 "$STACK_PATH/bin/add-user.sh admin ${globals.adminPswd}"
             ]
           },
