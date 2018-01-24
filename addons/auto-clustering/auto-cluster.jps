@@ -30,7 +30,7 @@
         ],
         "onBeforeServiceScaleOut[cp]": [
           {
-            "if (!nodes.ctrl)": [ "buildCluster", "migrateAppsToDomain" ]
+            "if (!nodes.ctrl)": [ "buildCluster", "migrateToDomain" ]
           }
         ],
         "onAfterServiceScaleOut[cp]": [
@@ -79,7 +79,7 @@
               }
             }
           },
-          "migrateAppsToDomain": {
+          "migrateToDomain": {
             "forEach(nodes.cp)": {
               "if (${@i.ismaster})": {
                 "cmd": {
