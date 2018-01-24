@@ -132,6 +132,11 @@
               }
             },
             {
+              "fixAdminUser": {
+                "ctrlNodeId": "${this.ctrlNodeId}"
+              }
+            },
+            {
               "linkLayers": {
                 "ctrlNodeId": "${this.ctrlNodeId}"
               }
