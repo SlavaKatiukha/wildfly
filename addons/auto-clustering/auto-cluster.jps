@@ -147,7 +147,17 @@
                 }
               }
             },
-            "restartContainers[cp]"
+            {
+              "forEach(nodes.cp)": {
+                "cmd": {
+                  "nodeId": "${@i.id}",
+                  "user": "root",
+                  "commands": [
+                    "service wildfly restart"
+                  ]
+                }
+              }
+            }
           ],
           "addWokerUser": {
             "cmdViaApiById": {
