@@ -158,10 +158,9 @@
             }
           },
           "fixAdminUser": {
-            "cmdViaApiById": {
-              "nodeId": "${this.ctrlNodeId}",
-              "command": "$STACK_PATH/bin/add-user.sh admin ${globals.adminPswd}"
-            }
+            "cmd[${this.id}]": [
+                "$STACK_PATH/bin/add-user.sh admin ${globals.adminPswd}"
+            ]
           },
           "linkLayers": {
             "forEach(nodes.cp)": [
