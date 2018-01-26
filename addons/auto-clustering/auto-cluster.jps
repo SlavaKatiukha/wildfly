@@ -31,6 +31,7 @@
         "onBeforeServiceScaleOut[cp]": [
           {
             "if (!nodes.ctrl)": [
+              "saveDatasources",
               "buildCluster",
               "migrateToDomain"
             ]
@@ -89,7 +90,20 @@
                   "nodeId": "${@i.id}",
                   "user": "root",
                   "commands": [
-                    "migrate_deployments;"
+                    "restoreDatasources; migrate_deployments;"
+                  ]
+                }
+              }
+            }
+          },
+          "saveDatasources": {
+            "forEach(nodes.cp)": {
+              "if (${@i.ismaster})": {
+                "cmd": {
+                  "nodeId": "${@i.id}",
+                  "user": "root",
+                  "commands": [
+                    "saveDatasources;"
                   ]
                 }
               }
