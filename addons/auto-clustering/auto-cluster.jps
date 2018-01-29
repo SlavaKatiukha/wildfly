@@ -34,15 +34,7 @@
               "setJavaMemoryOpts"
             ],
             "onAfterRedeployContainer[cp]": {		
-              "forEach(wnode:nodes.cp)": {		
-                "cmd": {		
-                  "nodeId": "${@wnode.id}",		
-                  "user": "root",		
-                  "commands": [		
-                    "service wildfly restart"		
-                  ]		
-                }		
-              }		
+              "cmd[cp]": "sudo service wildfly restart"
             },
             "onBeforeServiceScaleOut[cp]": [
               {
@@ -130,15 +122,7 @@
                   }
                 },
                 {
-                  "forEach(wnode:nodes.cp)": {
-                    "cmd": {
-                      "nodeId": "${@wnode.id}",
-                      "user": "root",
-                      "commands": [
-                        "service wildfly restart"
-                      ]
-                    }
-                  }
+                    "cmd[cp]": "sudo service wildfly restart"
                 }
               ],
               "addWokerUser": {
