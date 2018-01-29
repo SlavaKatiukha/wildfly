@@ -63,17 +63,6 @@
                 }
               }
             },
-            "onAfterRedeployContainer[ctrl]": {
-              "if (nodes.ctrl)": {
-                "cmd": {
-                  "nodeId": "${nodes.ctrl.first.id}",
-                  "user": "root",
-                  "commands": [
-                    "service wildfly restart;"
-                  ]
-                }
-              }
-            },
             "actions": {
               "setJavaMemoryOpts": {
                 "cmd[${settings.masterId}]": [ "domainMemoryConfig;" ],
