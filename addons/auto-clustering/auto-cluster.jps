@@ -76,31 +76,16 @@
             },
             "actions": {
               "setJavaMemoryOpts": {
-                "cmd": {
-                  "nodeId": "${settings.masterId}",
-                  "user": "root",
-                  "commands": [
-                    "domainMemoryConfig;"
-                  ]
-                }
+                "cmd[${settings.masterId}]": [ "domainMemoryConfig;" ],
+                "user": "root"
               },
               "migrateToDomain": {
-                "cmd": {
-                  "nodeId": "${settings.masterId}",
-                  "user": "root",
-                  "commands": [
-                    "restoreDatasources; migrateDeployments;"
-                  ]
-                }
+                "cmd[${settings.masterId}]": [ "restoreDatasources; migrateDeployments;" ],
+                "user": "root"
               },
               "saveDatasources": {
-                "cmd": {
-                  "nodeId": "${settings.masterId}",
-                  "user": "root",
-                  "commands": [
-                    "saveDatasources;"
-                  ]
-                }
+                "cmd[${settings.masterId}]": [ "saveDatasources;" ],
+                "user": "root"
               },
               "buildCluster": [
                 {
