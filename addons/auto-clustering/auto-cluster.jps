@@ -89,7 +89,7 @@
                   "nodeId": "${settings.masterId}",
                   "user": "root",
                   "commands": [
-                    "restoreDatasources; migrate_deployments;"
+                    "restoreDatasources; migrateDeployments;"
                   ]
                 }
               },
