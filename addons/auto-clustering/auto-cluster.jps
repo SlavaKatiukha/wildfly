@@ -104,7 +104,8 @@
                       "CTRL": "true",
                       "WORKER_USER": "${globals.workerUser}",
                       "WORKER_PASSWORD": "${globals.workerPswd}",
-                      "JBOSS_MODE": "domain"
+                      "JBOSS_MODE": "domain",
+                      "JELASTIC_EXPOSE": "4949"
                     }
                   }
                 },
