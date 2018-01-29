@@ -222,7 +222,7 @@
     },
     {
       "install": {
-        "jps": "${baseUrl}/manifest.jps?_r=${fn.random}",
+        "jps": "${baseUrl}/auto-cluster.jps?_r=${fn.random}",
         "envName": "${event.response.env.envName}"
       }
     }
