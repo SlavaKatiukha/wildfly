@@ -55,6 +55,9 @@
                 "if (nodes.ctrl)": "setJavaMemoryOpts"
               }
             ],
+            "onAfterResetNodePassword[cp]": {
+              "cmd[cp]": "sudo service wildfly restart"
+            },
             "actions": {
               "setJavaMemoryOpts": {
                 "cmd[${settings.masterId}]": [ "domainMemoryConfig;" ],
