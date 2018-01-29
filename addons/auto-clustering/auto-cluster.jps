@@ -33,6 +33,17 @@
               },
               "setJavaMemoryOpts"
             ],
+            "onAfterRedeployContainer[cp]": {		
+              "forEach(wnode:nodes.cp)": {		
+                "cmd": {		
+                  "nodeId": "${@wnode.id}",		
+                  "user": "root",		
+                  "commands": [		
+                    "service wildfly restart"		
+                  ]		
+                }		
+              }		
+            },
             "onBeforeServiceScaleOut[cp]": [
               {
                 "if (!nodes.ctrl)": [
