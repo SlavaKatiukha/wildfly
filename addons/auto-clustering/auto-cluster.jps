@@ -52,17 +52,6 @@
                 "if (nodes.ctrl)": "setJavaMemoryOpts"
               }
             ],
-            "onAfterRedeployContainer[cp]": {
-              "forEach(wnode:nodes.cp)": {
-                "cmd": {
-                  "nodeId": "${@wnode.id}",
-                  "user": "root",
-                  "commands": [
-                    "service wildfly restart"
-                  ]
-                }
-              }
-            },
             "actions": {
               "setJavaMemoryOpts": {
                 "cmd[${settings.masterId}]": [ "domainMemoryConfig;" ],
