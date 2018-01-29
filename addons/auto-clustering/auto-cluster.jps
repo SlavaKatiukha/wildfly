@@ -57,13 +57,13 @@
             ],
             "actions": {
               "setJavaMemoryOpts": {
-                "cmd[${settings.masterId}]": [ "domainMemoryConfig;" ]
+                "cmd[${settings.masterId}]": [ "sudo domainMemoryConfig;" ]
               },
               "migrateToDomain": {
-                "cmd[${settings.masterId}]": [ "restoreDatasources; migrateDeployments;" ]
+                "cmd[${settings.masterId}]": [ "sudo restoreDatasources; sudo migrateDeployments;" ]
               },
               "saveDatasources": {
-                "cmd[${settings.masterId}]": [ "saveDatasources;" ]
+                "cmd[${settings.masterId}]": [ "sudo saveDatasources;" ]
               },
               "buildCluster": [
                 {
