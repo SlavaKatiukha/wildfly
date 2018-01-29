@@ -30,7 +30,8 @@
                 "if (!nodes.ctrl && nodes.cp.length > 1)": [
                   "buildCluster"
                 ]
-              }
+              },
+              "setJavaMemoryOpts"
             ],
             "onAfterRedeployContainer[cp]": {		
               "cmd[cp]": "sudo service wildfly restart"
@@ -42,6 +43,16 @@
                   "buildCluster",
                   "migrateToDomain"
                 ]
+              }
+            ],
+            "onAfterServiceScaleOut[cp]": [
+              {
+                "if (nodes.ctrl)": "setJavaMemoryOpts"
+              }
+            ],
+            "onAfterSetCloudletCount[cp]": [
+              {
+                "if (nodes.ctrl)": "setJavaMemoryOpts"
               }
             ],
             "actions": {
