@@ -30,8 +30,7 @@
                 "if (!nodes.ctrl && nodes.cp.length > 1)": [
                   "buildCluster"
                 ]
-              },
-              "setJavaMemoryOpts"
+              }
             ],
             "onAfterRedeployContainer[cp]": {		
               "cmd[cp]": "sudo service wildfly restart"
