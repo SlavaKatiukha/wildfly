@@ -50,11 +50,6 @@
                 "if (nodes.ctrl)": "setJavaMemoryOpts"
               }
             ],
-            "onAfterSetCloudletCount[cp]": [
-              {
-                "if (nodes.ctrl)": "setJavaMemoryOpts"
-              }
-            ],
             "actions": {
               "setJavaMemoryOpts": {
                 "cmd[${settings.masterId}]": [ "domainMemoryConfig;" ],
