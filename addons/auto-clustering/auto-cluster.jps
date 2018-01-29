@@ -45,11 +45,6 @@
                 ]
               }
             ],
-            "onAfterServiceScaleOut[cp]": [
-              {
-                "if (nodes.ctrl)": "setJavaMemoryOpts"
-              }
-            ],
             "actions": {
               "setJavaMemoryOpts": {
                 "cmd[${settings.masterId}]": [ "domainMemoryConfig;" ],
