@@ -50,6 +50,13 @@
                 "if (nodes.ctrl)": "setJavaMemoryOpts"
               }
             ],
+            "onAfterResetNodePassword[cp]": {		
+              "executeScript": {
+                "description": "Sets the admin password on the domain controller node",
+                "type": "javascript",
+                "script": "${baseUrl}/setControllerAdminPassword.js"
+              }
+            },
             "actions": {
               "setJavaMemoryOpts": {
                 "cmd[${settings.masterId}]": [ "sudo domainMemoryConfig;" ]
