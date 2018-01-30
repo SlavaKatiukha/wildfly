@@ -54,7 +54,7 @@
               "executeScript": {
                 "description": "Sets the admin password on the domain controller node",
                 "type": "javascript",
-                "script": "${baseUrl}/setControllerAdminPassword.js"
+                "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
               }
             },
             "actions": {
