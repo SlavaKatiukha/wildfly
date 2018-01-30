@@ -13,7 +13,7 @@
     "workerUser": "worker",
     "workerPswd": "${fn.password}"
   },
-  "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master",
+  "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/addons/auto-clustering/",
   "onInstall": {
     "forEach(nodes.cp)": {
       "if (${@i.ismaster})": {
