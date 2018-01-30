@@ -9,5 +9,4 @@ var pswd = jelastic.env.file.Read(envName, SESSION, PASS_PATH, SOURCE_NODE);
 
 return {
     result : 0,
-    pass : pass
 };
