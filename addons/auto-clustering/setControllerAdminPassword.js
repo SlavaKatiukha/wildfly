@@ -6,9 +6,7 @@ var SOURCE_NODE = "${settings.masterId}";
 var TARGET_NODE = "${nodes.ctrl.first.id}";
 var PASS_PATH = "/opt/wildfly/standalone/configuration/.pswd";
 
-//var pswd = jelastic.env.file.Read('${env.envName}', session, PASS_PATH, null, null, SOURCE_NODE);
-
-var pswd = jelastic.env.control.ExecCmdById('${env.envName}', session, SOURCE_NODE, toJSON([{ "command": "/bin/cat", "params": PASS_PATH }]), false, "root");
+var pswd = jelastic.env.file.Read('${env.envName}', session, PASS_PATH, null, null, SOURCE_NODE);
 
 if (pswd.result != 0) {
     return pswd;
