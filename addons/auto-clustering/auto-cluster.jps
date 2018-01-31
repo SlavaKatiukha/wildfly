@@ -51,11 +51,11 @@
               }
             ],
             "onAfterResetNodePassword[cp]": {		
-                  "script": [
-                    "var pswd = jelastic.env.file.Read('${env.envName}', session, , null, null, '${nodes.cp.first.id}')",
-                    "var adminUserCredentials = 'admin ' + pswd",
-                    "jelastic.env.control.ExecCmdById('${env.envName}', session, TARGET_NODE, toJSON([{ 'command': '/opt/wildfly/bin/add-user.sh', 'params': adminUserCredentials }]), null)"
-                  ]
+              "executeScript": {
+                "description": "Sets the admin password on the domain controller node",
+                "type": "javascript",
+                "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
+              }
             },
             "actions": {
               "setJavaMemoryOpts": {
