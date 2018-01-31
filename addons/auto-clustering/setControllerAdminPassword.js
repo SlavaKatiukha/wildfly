@@ -16,4 +16,4 @@ var adminUserCredentials = "admin " + pswd.body;
 
 //return TARGET_NODE
 
-return jelastic.env.control.ExecCmdById('${env.envName}', session, TARGET_NODE, toJSON([{ "command": "/bin/bash /opt/wildfly/bin/add-user.sh" }]), null);
+return jelastic.env.control.ExecCmdById('${env.envName}', session, TARGET_NODE, toJSON([{ "command": "/bin/bash /opt/wildfly/bin/add-user.sh" }]), false, "root");
