@@ -10,6 +10,4 @@ if (pswd.result != 0) {
 
 var adminUserCredentials = "admin " + pswd.body;
 
-//return adminUserCredentials
-
-return jelastic.env.control.ExecCmdById('${env.envName}', session, 151322, toJSON([{ "command": "/opt/wildfly/bin/add-user.sh", "params": adminUserCredentials }]), null);
+return jelastic.env.control.ExecCmdByGroup('${env.envName}', session, ctrl, toJSON([{ "command": "/opt/wildfly/bin/add-user.sh", "params": adminUserCredentials }]), null);
