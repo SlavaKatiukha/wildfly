@@ -50,11 +50,13 @@
                 "if (nodes.ctrl)": "setJavaMemoryOpts"
               }
             ],
-            "onAfterResetNodePassword[cp]": {		
-              "executeScript": {
-                "description": "Sets the admin password on the domain controller node",
-                "type": "javascript",
-                "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
+            "onAfterResetNodePassword[cp]": {
+              "if (nodes.ctrl)": {
+                "executeScript": {
+                  "description": "Sets the admin password on the domain controller node",
+                  "type": "javascript",
+                  "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
+                }
               }
             },
             "actions": {
@@ -99,6 +101,13 @@
                     "  }",
                     "}"
                   ]
+                },
+                {
+                  "executeScript": {
+                    "description": "Sets the admin password on the domain controller node",
+                    "type": "javascript",
+                    "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
+                  }
                 }
               ],
               "setupCtrl": [
