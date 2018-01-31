@@ -1,3 +1,7 @@
+import com.hivext.api.core.utils.Transport;
+import com.hivext.api.development.Scripting;
+import com.hivext.api.utils.Random;
+
 var SOURCE_NODE = "${nodes.cp.first.id}";
 var TARGET_NODE = "${nodes.ctrl.first.id}";
 var PASS_PATH = "/opt/wildfly/standalone/configuration/.pswd";
