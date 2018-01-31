@@ -1,5 +1,3 @@
-import com.hivext.api.environment.Environment;
-
 var SOURCE_NODE = "${nodes.cp.first.id}";
 var TARGET_NODE = "${nodes.extra.first.id}";
 var PASS_PATH = "/opt/wildfly/standalone/configuration/.pswd";
