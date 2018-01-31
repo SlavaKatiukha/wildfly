@@ -100,19 +100,19 @@
                     "  }",
                     "}"
                   ]
-                },
-                {
-                  "executeScript": {
-                    "description": "Sets the admin password on the domain controller node",
-                    "type": "javascript",
-                    "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
-                  }
                 }
               ],
               "setupCtrl": [
                 {
                   "addWokerUser": {
                     "ctrlNodeId": "${this.ctrlNodeId}"
+                  }
+                },
+                {
+                  "executeScript": {
+                    "description": "Sets the admin password on the domain controller node",
+                    "type": "javascript",
+                    "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
                   }
                 },
                 {
