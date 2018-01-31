@@ -9,7 +9,6 @@
     "text": "WildFly Auto-Cluster (Beta)"
   },
   "globals": {
-    "path": "/home/jelastic/.ssh",
     "workerUser": "worker",
     "workerPswd": "${fn.password}"
   },
@@ -147,16 +146,6 @@
                     "targetNodeId": "${@wnode.id}",
                     "groupAlias": "ctrl",
                     "alias": "ctrl"
-                  },
-                  {
-                    "api": "env.file.AddMountPointById",
-                    "nodeId": "${@wnode.id}",
-                    "path": "${globals.path}",
-                    "protocol": "nfs",
-                    "sourcePath": "${globals.path}",
-                    "sourceNodeId": "${this.ctrlNodeId}",
-                    "name": "SSH Keys",
-                    "readOnly": false
                   }
                 ]
               },
