@@ -6,6 +6,8 @@ var SOURCE_NODE = "${settings.masterId}";
 
 if (${nodes.ctrl.first.id} != "${nodes.ctrl.first.id") {
     var TARGET_NODE = "${nodes.ctrl.first.id}";
+} else if (${this.ctrlNodeId} != "${this.ctrlNodeId}") {
+    var TARGET_NODE = "${this.ctrlNodeId}";
 }
 
 var PASS_PATH = "/opt/wildfly/standalone/configuration/.pswd";
