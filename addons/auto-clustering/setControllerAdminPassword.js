@@ -4,9 +4,9 @@ import com.hivext.api.utils.Random;
 
 var SOURCE_NODE = "${settings.masterId}";
 
-if (${this.ctrlNodeId} != "${this.ctrlNodeId") {
-    var TARGET_NODE = "${this.ctrlNodeId}";
-}
+//if (${this.ctrlNodeId} != "${this.ctrlNodeId") {
+//    var TARGET_NODE = "${this.ctrlNodeId}";
+//}
 
 if (${nodes.ctrl.first.id} != "${nodes.ctrl.first.id") {
     var TARGET_NODE = "${nodes.ctrl.first.id}";
