@@ -22,7 +22,7 @@ if (pswd.result != 0) {
     return pswd;
 }
 
-var adminUserCredentials = pswd.body;
+var adminUserCredentials = pswd.body ;
 
 jelastic.env.control.ExecCmdById('${env.envName}', session, SOURCE_NODE, toJSON([{ "command": "/usr/bin/rm -f", "params": PASS_PATH }]), false, "root");
 return jelastic.env.control.ExecCmdById('${env.envName}', session, TARGET_NODE, toJSON([{ "command": resetPasswordCmd, "params": adminUserCredentials }]), false, "root");
