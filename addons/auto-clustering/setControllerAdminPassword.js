@@ -8,7 +8,7 @@ var SOURCE_NODE = "${settings.masterId}";
 //    var TARGET_NODE = "${this.ctrlNodeId}";
 //}
 
-if (${nodes.ctrl.first.id} != "${nodes.ctrl.first.id}") {
+if (${nodes.ctrl.first.id}) {
     var TARGET_NODE = "${nodes.ctrl.first.id}";
 }
 
