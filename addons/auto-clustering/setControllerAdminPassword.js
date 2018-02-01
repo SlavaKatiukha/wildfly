@@ -16,13 +16,13 @@ var PASS_PATH = "/opt/wildfly/standalone/configuration/.pswd" ;
 
 var pswd = jelastic.env.file.Read('${env.envName}', session, PASS_PATH, null, null, SOURCE_NODE);
 
-var resetPasswordCmd = "/opt/wildfly/bin/add-admin-user.sh" ;
+var resetPasswordCmd = "/opt/wildfly/bin/add-user.sh" ;
 
 if (pswd.result != 0) {
     return pswd;
 }
 
-var adminUserCredentials = pswd.body ;
+var adminUserCredentials = "admin " + pswd.body;
 
 jelastic.env.control.ExecCmdById('${env.envName}', session, SOURCE_NODE, toJSON([{ "command": "/usr/bin/rm -f", "params": PASS_PATH }]), false, "root");
 return jelastic.env.control.ExecCmdById('${env.envName}', session, TARGET_NODE, toJSON([{ "command": resetPasswordCmd, "params": adminUserCredentials }]), false, "root");
