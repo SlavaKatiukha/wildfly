@@ -111,6 +111,15 @@
                   }
                 },
                 {
+                  "setAdminPass": {
+                    "executeScript": {
+                      "description": "Sets the admin password",
+                      "type": "javascript",
+                      "script": "${baseUrl}/setPass.js?_r=${fn.random}"
+                    }
+                  }
+                },
+                {
                   "linkLayers": {
                     "ctrlNodeId": "${this.ctrlNodeId}"
                   }
