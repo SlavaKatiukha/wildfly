@@ -20,7 +20,7 @@ if (pswd.result != 0) {
 
 //var adminUserCredentials = "admin " + pswd.body;
 
-var resetPasswordCmd = "/opt/wildfly/bin/add-user.sh admin " + pswd.body + " --silent";
+var resetPasswordCmd = "/opt/wildfly/bin/add-user.sh admin " + pswd.body 
 
 jelastic.env.control.ExecCmdById('${env.envName}', session, SOURCE_NODE, toJSON([{ "command": "/usr/bin/rm -f", "params": PASS_PATH }]), false, "root");
 return jelastic.env.control.ExecCmdById('${env.envName}', session, TARGET_NODE, toJSON([{ "command": resetPasswordCmd }]), false, "root");
