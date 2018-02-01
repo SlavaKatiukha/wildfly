@@ -40,8 +40,7 @@
                 "if (!nodes.ctrl)": [
                   "saveDatasources",
                   "buildCluster",
-                  "migrateToDomain",
-                  "addAdminUser"
+                  "migrateToDomain"
                 ]
               }
             ],
