@@ -17,10 +17,7 @@ if (pswd.result != 0) {
     return pswd;
 }
 
-var TARGET_NODE_GROUP="ctrl";
-
-
 var adminUserCredentials = "admin " + pswd.body.replace(/\n/g, '');
 
 jelastic.env.control.ExecCmdById('${env.envName}', session, SOURCE_NODE, toJSON([{ "command": "/usr/bin/rm -f", "params": PASS_PATH }]), false, "root");
-return jelastic.env.control.ExecCmdByGroup('${env.envName}', session.toString(), "ctrl", toJSON([{ "command": resetPasswordCmd, "params": adminUserCredentials }]), false, false);
+return jelastic.env.control.ExecCmdByGroup('${env.envName}', session, "ctrl", toJSON([{ "command": resetPasswordCmd, "params": adminUserCredentials }]), false, false);
