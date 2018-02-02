@@ -114,7 +114,7 @@
                   "executeScript": {
                     "description": "Sets the admin password",
                     "type": "javascript",
-                    "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
+                    "script": "${baseUrl}/setPass.js?_r=${fn.random}"
                   }
                 },
                 {
