@@ -4,9 +4,8 @@ import com.hivext.api.utils.Random;
 
 var SOURCE_NODE = "${settings.masterId}";
 
-if ("${nodes.ctrl.first.id}".indexOf("nodes.ctrl.first.id") == -1) {
-    var TARGET_NODE = "${nodes.ctrl.first.id}";
-}
+var TARGET_NODE = "${nodes.ctrl.first.id}";
+
 
 var PASS_PATH = "/opt/wildfly/standalone/configuration/.pswd" ;
 
