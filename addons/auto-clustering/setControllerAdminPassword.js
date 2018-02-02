@@ -4,7 +4,7 @@ import com.hivext.api.utils.Random;
 
 var SOURCE_NODE = "${settings.masterId}";
 
-if ("${this.ctrlNodeId}".indexOf("nthis.ctrlNodeId") == -1) {
+if ("${this.ctrlNodeId}".indexOf("this.ctrlNodeId") == -1) {
     var TARGET_NODE = "${this.ctrlNodeId}";
 }
 
