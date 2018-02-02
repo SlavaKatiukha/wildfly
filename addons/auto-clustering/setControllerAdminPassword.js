@@ -4,10 +4,6 @@ import com.hivext.api.utils.Random;
 
 var SOURCE_NODE = "${settings.masterId}";
 
-if ("${this.ctrlNodeId}".indexOf("this.ctrlNodeId") == -1) {
-    var TARGET_NODE = "${this.ctrlNodeId}";
-}
-
 if ("${nodes.ctrl.first.id}".indexOf("nodes.ctrl.first.id") == -1) {
     var TARGET_NODE = "${nodes.ctrl.first.id}";
 }
@@ -25,4 +21,4 @@ if (pswd.result != 0) {
 var adminUserCredentials = "admin " + pswd.body.replace(/\n/g, '');
 
 jelastic.env.control.ExecCmdById('${env.envName}', session, SOURCE_NODE, toJSON([{ "command": "/usr/bin/rm -f", "params": PASS_PATH }]), false, "root");
-return jelastic.env.control.ExecCmdById('${env.envName}', session, TARGET_NODE, toJSON([{ "command": resetPasswordCmd, "params": adminUserCredentials }]), false, "root");
+return jelastic.env.control.ExecCmdByGroup('${env.envName}', session, "ctrl", toJSON([{ "command": resetPasswordCmd, "params": adminUserCredentials }]), false, "root");
