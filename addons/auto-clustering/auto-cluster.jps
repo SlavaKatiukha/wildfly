@@ -40,7 +40,8 @@
                 "if (!nodes.ctrl)": [
                   "saveDatasources",
                   "buildCluster",
-                  "migrateToDomain"
+                  "migrateToDomain",
+                  "addAdminUser"
                 ]
               }
             ],
@@ -108,13 +109,6 @@
                 {
                   "addWokerUser": {
                     "ctrlNodeId": "${this.ctrlNodeId}"
-                  }
-                },
-                {
-                  "executeScript": {
-                    "description": "Sets the admin password",
-                    "type": "javascript",
-                    "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
                   }
                 },
                 {
