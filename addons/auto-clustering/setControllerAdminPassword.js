@@ -4,9 +4,6 @@ import com.hivext.api.utils.Random;
 
 var SOURCE_NODE = "${settings.masterId}";
 
-var TARGET_NODE = "${nodes.ctrl.first.id}";
-
-
 var PASS_PATH = "/opt/wildfly/standalone/configuration/.pswd" ;
 
 var pswd = jelastic.env.file.Read('${env.envName}', session, PASS_PATH, null, null, SOURCE_NODE);
