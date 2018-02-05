@@ -12,7 +12,7 @@
     "workerUser": "worker",
     "workerPswd": "${fn.password}"
   },
-  "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/addons/auto-clustering/",
+  "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/",
   "onInstall": {
     "forEach(nodes.cp)": {
       "if (${@i.ismaster})": {
@@ -137,7 +137,7 @@
               "addAdminUser": {
                 "executeScript": {
                   "description": "Sets the admin password on the domain controller node",
-                  "script": "${baseUrl}/setControllerAdminPassword.js?_r=${fn.random}"
+                  "script": "${baseUrl}/scripts/setControllerAdminPassword.js?_r=${fn.random}"
                 }
               },
               "linkLayers": {
@@ -180,7 +180,7 @@
     },
     {
       "install": {
-        "jps": "${baseUrl}/auto-cluster.jps?_r=${fn.random}",
+        "jps": "${baseUrl}/addons/auto-clustering/auto-cluster.jps?_r=${fn.random}",
         "envName": "${event.response.env.envName}"
       }
     }
