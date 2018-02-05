@@ -134,11 +134,8 @@
                   "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
                 }
               },
-              "addAdminUser": {
-                "executeScript": {
-                  "description": "Sets the admin password on the domain controller node",
-                  "script": "${baseUrl}/scripts/setControllerAdminPassword.js?_r=${fn.random}"
-                }
+              "addAdminUser": { 
+                "script": "${baseUrl}/scripts/setControllerAdminPassword.js?_r=${fn.random}" 
               },
               "linkLayers": {
                 "forEach(wnode:nodes.cp)": [
