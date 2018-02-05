@@ -135,7 +135,7 @@
                 }
               },
               "addAdminUser": { 
-                "script": "${baseUrl}/scripts/setControllerAdminPassword.js?_r=${fn.random}" 
+                "script": "${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}" 
               },
               "linkLayers": {
                 "forEach(wnode:nodes.cp)": [
