@@ -12,7 +12,7 @@
     "workerUser": "worker",
     "workerPswd": "${fn.password}"
   },
-  "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/",
+  "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/addons/auto-clustering",
   "onInstall": {
     "forEach(nodes.cp)": {
       "if (${@i.ismaster})": {
@@ -177,7 +177,7 @@
     },
     {
       "install": {
-        "jps": "${baseUrl}/addons/auto-clustering/auto-cluster.jps?_r=${fn.random}",
+        "jps": "${baseUrl}/auto-cluster.jps?_r=${fn.random}",
         "envName": "${event.response.env.envName}"
       }
     }
