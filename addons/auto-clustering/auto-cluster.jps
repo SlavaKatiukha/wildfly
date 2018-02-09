@@ -44,6 +44,9 @@
                 ]
               }
             ],
+            "onAfterServiceScaleOut[cp]": {
+              "cmd[cp]": "sudo service wildfly restart"
+            },
             "onAfterSetCloudletCount[cp]": [
               {
                 "if (nodes.ctrl)": "setJavaMemoryOpts"
