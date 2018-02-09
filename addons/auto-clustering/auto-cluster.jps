@@ -32,9 +32,12 @@
               },
               "setJavaMemoryOpts"
             ],
-            "onAfterRedeployContainer[cp]": {
-              "cmd[cp]": "sudo service wildfly restart"
-            },
+            "onAfterRedeployContainer[cp]": [
+              {
+                "cmd[cp]": "sudo service wildfly restart"
+              },
+              "setJavaMemoryOpts"
+            ],
             "onBeforeServiceScaleOut[cp]": [
               {
                 "if (!nodes.ctrl)": [
@@ -137,8 +140,8 @@
                   "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
                 }
               },
-              "addAdminUser": { 
-                "script": "${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}" 
+              "addAdminUser": {
+                "script": "${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}"
               },
               "linkLayers": {
                 "forEach(wnode:nodes.cp)": [
