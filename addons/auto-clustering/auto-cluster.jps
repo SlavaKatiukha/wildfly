@@ -63,7 +63,7 @@
             "actions": {
               "setJavaMemoryOpts": {
                 "cmd[${nodes.cp.first.id}]": [
-                  "sleep 1;"
+                  "sudo domainMemoryConfig"
                 ]
               },
               "migrateToDomain": {
