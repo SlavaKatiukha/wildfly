@@ -33,7 +33,9 @@
               "setJavaMemoryOpts"
             ],
             "onAfterRedeployContainer[cp]": [
-              "restartWorkers",
+              {
+                "cmd[cp]": "sudo service wildfly restart"
+              },
               "setJavaMemoryOpts"
             ],
             "onBeforeServiceScaleOut[cp]": [
@@ -46,8 +48,17 @@
               }
             ],
             "onAfterServiceScaleOut[cp]": [
-              "restartWorkers",
-              "updateLink2CtrlConsole" 
+              {
+                "cmd[cp]": "sudo service wildfly restart"
+              },
+              {
+                "forEach(wnode:event.response.nodes)": {
+                  "updateLink2CtrlConsole": {
+                    "nodeId": "${@wnode.id}",
+                    "ctrlNodeId": "${nodes.ctrl.first.id}"
+                  }
+                }
+              }
             ],
             "onAfterSetCloudletCount[cp]": [
               {
@@ -121,8 +132,17 @@
                     "ctrlNodeId": "${this.ctrlNodeId}"
                   }
                 },
-                "updateLink2CtrlConsole",
-                "restartWorkers"
+                {
+                  "forEach(wnode:nodes.cp)": {
+                    "updateLink2CtrlConsole": {
+                      "nodeId": "${@wnode.id}",
+                      "ctrlNodeId": "${this.ctrlNodeId}"
+                    }
+                  }
+                },
+                {
+                  "cmd[cp]": "sudo service wildfly restart"
+                }
               ],
               "addWokerUser": {
                 "cmdViaApiById": {
@@ -154,10 +174,10 @@
                 ]
               },
               "updateLink2CtrlConsole": {
-                "cmd[cp]": "sed -i \"s#/console#http://node${nodes.ctrl.first.id}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html;"
-              },
-              "restartWorkers": {
-                "cmd[cp]": "sudo service wildfly restart;"
+                "cmdViaApiById": {
+                  "nodeId": "${this.nodeId}",
+                  "command": "sed -i \"s#/console#http://node${this.ctrlNodeId}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html"
+                }
               }
             }
           }
