@@ -47,9 +47,19 @@
                 ]
               }
             ],
-            "onAfterServiceScaleOut[cp]": {
-              "cmd[cp]": "sudo service wildfly restart"
-            },
+            "onAfterServiceScaleOut[cp]": [
+              {
+                "cmd[cp]": "sudo service wildfly restart"
+              },
+              {
+                "forEach(wnode:event.response.nodes)": {
+                  "updateLink2CtrlConsole": {
+                    "nodeId": "${@wnode.id}",
+                    "ctrlNodeId": "${nodes.ctrl.first.id}"
+                  }
+                }
+              }
+            ],
             "onAfterSetCloudletCount[cp]": [
               {
                 "if (nodes.ctrl)": "setJavaMemoryOpts"
