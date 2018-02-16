@@ -33,9 +33,7 @@
               "setJavaMemoryOpts"
             ],
             "onAfterRedeployContainer[cp]": [
-              {
-                "cmd[cp]": "sudo service wildfly restart"
-              },
+              "restartWorkers",
               "setJavaMemoryOpts"
             ],
             "onBeforeServiceScaleOut[cp]": [
@@ -48,9 +46,7 @@
               }
             ],
             "onAfterServiceScaleOut[cp]": [
-              {
-                "cmd[cp]": "sudo service wildfly restart"
-              },
+              "restartWorkers",
               "updateLink2CtrlConsole" 
             ],
             "onAfterSetCloudletCount[cp]": [
@@ -126,9 +122,7 @@
                   }
                 },
                 "updateLink2CtrlConsole",
-                {
-                  "cmd[cp]": "sudo service wildfly restart"
-                }
+                "restartWorkers"
               ],
               "addWokerUser": {
                 "cmdViaApiById": {
@@ -160,7 +154,10 @@
                 ]
               },
               "updateLink2CtrlConsole": {
-                "cmd[cp]": "sed -i \"s#/console#http://node${this.ctrlNodeId}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html;"
+                "cmd[cp]": "sed -i \"s#/console#http://node${nodes.ctrl.first.id}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html;"
+              },
+              "restartWorkers": {
+                "cmd[cp]": "sudo service wildfly restart;"
               }
             }
           }
