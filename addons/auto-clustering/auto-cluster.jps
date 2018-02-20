@@ -41,7 +41,8 @@
               {
                 "if (!nodes.ctrl)": [
                   "saveDatasources",
-                  "buildCluster"
+                  "buildCluster",
+                  "migrateToDomain"
                 ]
               }
             ],
@@ -117,8 +118,7 @@
                     "}"
                   ]
                 },
-                "addAdminUser",
-                "migrateToDomain"
+                "addAdminUser"
               ],
               "setupCtrl": [
                 {
