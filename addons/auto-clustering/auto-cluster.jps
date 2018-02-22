@@ -60,7 +60,9 @@
               }
             ],
             "onAfterSetCloudletCount[cp]": [
-              "setJavaMemoryOpts"
+              {
+                "if (nodes.ctrl)": "setJavaMemoryOpts"
+              }
             ],
             "onAfterResetNodePassword[cp]": [
               {
