@@ -121,7 +121,10 @@
                 {
                   "setNodeDisplayName [cp]": "Worker"
                 },
-                "setJavaMemoryOpts"
+                "setJavaMemoryOpts",
+                {
+                  "script": "${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}"
+                }
               ],
               "setupCtrl": [
                 {
