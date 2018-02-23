@@ -28,8 +28,7 @@
                 "if (!nodes.ctrl && nodes.cp.length > 1)": [
                   "buildCluster"
                 ]
-              },
-              "setJavaMemoryOpts"
+              }
             ],
             "onAfterRedeployContainer[cp]": [
               {
@@ -120,8 +119,9 @@
                 },
                 "addAdminUser",
                 {
-                  "setNodeDisplayName [cp]": "worker"
-                }
+                  "setNodeDisplayName [cp]": "Worker"
+                },
+                "setJavaMemoryOpts"
               ],
               "setupCtrl": [
                 {
