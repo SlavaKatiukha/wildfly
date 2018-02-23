@@ -118,7 +118,10 @@
                     "}"
                   ]
                 },
-                "addAdminUser"
+                "addAdminUser",
+                {
+                  "setNodeDisplayName [cp]": "worker"
+                }
               ],
               "setupCtrl": [
                 {
