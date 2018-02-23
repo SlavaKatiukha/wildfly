@@ -121,10 +121,7 @@
                 {
                   "setNodeDisplayName [cp]": "Worker"
                 },
-                "setJavaMemoryOpts",
-                {
-                  "script": "${baseUrl}/scripts/enableJelasticSSLForDomain.js?_r=${fn.random}"
-                }
+                "setJavaMemoryOpts"
               ],
               "setupCtrl": [
                 {
