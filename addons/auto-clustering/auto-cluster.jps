@@ -1,5 +1,5 @@
 {
-  "jpsType": "update",
+  "jpsType": "install",
   "jpsVersion": "0.99",
   "name": "WildFly Auto-Cluster",
   "logo": "https://goo.gl/epR2KT",
