@@ -56,6 +56,9 @@
                     "ctrlNodeId": "${nodes.ctrl.first.id}"
                   }
                 }
+              },
+              {
+                "setNodeDisplayName [cp]": "Worker"
               }
             ],
             "onAfterSetCloudletCount[cp]": [
