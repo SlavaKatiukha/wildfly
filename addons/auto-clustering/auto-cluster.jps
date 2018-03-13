@@ -147,12 +147,6 @@
                   }
                 },
                 {
-                  "setControlNodeRedirect": {
-                    "nodeIp": "${settings.masterIp}",
-                    "ctrlNodeIp": "${this.ctrlNodeIp}"
-                  }
-                },
-                {
                   "cmd[cp]": "sudo service wildfly restart"
                 }
               ],
@@ -189,11 +183,6 @@
                 "cmdViaApiById": {
                   "nodeId": "${this.nodeId}",
                   "command": "sed -i \"s#/console#http://node${this.ctrlNodeId}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html"
-                }
-              },
-              "setControlNodeRedirect": {
-                "cmdViaApiById": {
-                  "command": "iptables -t nat -I PREROUTING -p tcp -d ${this.nodeIp} --dport 4848 -j DNAT --to-destination ${this.ctrlNodeIp}; iptables -t nat -I POSTROUTING -p tcp --dst ${this.ctrlNodeIp} --dport 4848 -j SNAT --to-source ${this.nodeIp}; iptables --policy FORWARD ACCEPT; service iptables save;"
                 }
               }
             }
