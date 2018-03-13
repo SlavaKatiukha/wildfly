@@ -149,7 +149,9 @@
                   "cmd[cp]": "sudo service wildfly restart"
                 },
                 {
-                  "cmd[settings.masterId]": "sudo setAdminPanelRedirect"
+                  "setRedirectToController": {
+                    "id": "${settings.masterId}"
+                  }
                 }
               ],
               "addWokerUser": {
@@ -185,6 +187,13 @@
                 "cmdViaApiById": {
                   "nodeId": "${this.nodeId}",
                   "command": "sed -i \"s#/console#http://node${this.ctrlNodeId}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html"
+                }
+              },
+              "setRedirectToController": {
+                "cmd[${this.id}]": {
+                  "commands": [
+                    "sudo setAdminPanelRedirect"
+                  ]
                 }
               }
             }
