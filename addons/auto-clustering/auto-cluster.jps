@@ -147,8 +147,8 @@
                 },
                 {
                   "setControlNodeRedirect": {
-                    "nodeId": "${settings.masterId}",
-                    "ctrlNodeId": "${this.ctrlNodeId}"
+                    "nodeIp": "${settings.masterId.address}",
+                    "ctrlNodeIp": "${this.ctrlNodeId.address}"
                   }
                 },
                 {
@@ -192,8 +192,7 @@
               },
               "setControlNodeRedirect": {
                 "cmdViaApiById": {
-                  "nodeId": "${this.nodeId}",
-                  "command": "iptables -t nat -I PREROUTING -p tcp -d ${this.nodeId} --dport 4848 -j DNAT --to-destination ${this.ctrlNodeId}; iptables -t nat -I POSTROUTING -p tcp --dst ${this.ctrlNodeId} --dport 4848 -j SNAT --to-source ${this.nodeId}; iptables --policy FORWARD ACCEPT; service iptables save;"
+                  "command": "iptables -t nat -I PREROUTING -p tcp -d ${this.nodeIp} --dport 4848 -j DNAT --to-destination ${this.ctrlNodeIp}; iptables -t nat -I POSTROUTING -p tcp --dst ${this.ctrlNodeIp} --dport 4848 -j SNAT --to-source ${this.nodeIp}; iptables --policy FORWARD ACCEPT; service iptables save;"
                 }
               }
             }
