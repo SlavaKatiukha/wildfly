@@ -157,7 +157,7 @@
               "addWokerUser": {
                 "cmdViaApiById": {
                   "nodeId": "${this.ctrlNodeId}",
-                  "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD"
+                  "command": "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD 2>&1"
                 }
               },
               "addAdminUser": {
