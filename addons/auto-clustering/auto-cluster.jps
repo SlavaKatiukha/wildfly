@@ -34,7 +34,12 @@
               {
                 "cmd[cp]": "sudo service wildfly restart"
               },
-              "setJavaMemoryOpts"
+              "setJavaMemoryOpts",
+              {
+                "setRedirectToController": {
+                  "id": "${settings.masterId}"
+                }
+              }
             ],
             "onBeforeServiceScaleOut[cp]": [
               {
