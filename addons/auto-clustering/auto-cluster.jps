@@ -30,6 +30,16 @@
                     "setRedirectToController": {
                       "id": "${settings.masterId}"
                     }
+                  },
+                  {
+                    "forEach(wnode:nodes.cp)": {
+                      "cmd": {
+                        "nodeId": "${@wnode.id}",
+                        "commands": [
+                          "sed -i \"s#http://node.*/console#http://node${this.ctrlNodeId}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html"
+                        ]
+                      }
+                    }
                   }
                 ]
               },
