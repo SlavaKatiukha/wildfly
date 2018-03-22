@@ -36,7 +36,7 @@
                       "cmd": {
                         "nodeId": "${@wnode.id}",
                         "commands": [
-                          "sed -i \"s#http://node.*/console#http://node${this.ctrlNodeId}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html"
+                          "sed -i \"s#http://node.*/console#http://node${nodes.ctrl.first.id}-${env.domain}/console#g\" ${STACK_PATH}/welcome-content/index.html"
                         ]
                       }
                     }
