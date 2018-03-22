@@ -32,7 +32,7 @@
                     }
                   },
                   {
-                    "forEach(wnode:event.response.nodes)": {
+                    "forEach(wnode:nodes.cp)": {
                       "updateLink2CtrlConsole": {
                         "nodeId": "${@wnode.id}",
                         "ctrlNodeId": "${nodes.ctrl.first.id}"
