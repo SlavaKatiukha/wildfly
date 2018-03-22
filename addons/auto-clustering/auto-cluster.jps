@@ -64,7 +64,8 @@
               {
                 "if (!nodes.ctrl)": [
                   "saveDatasources",
-                  "buildCluster"
+                  "buildCluster",
+                  "migrateToDomain"
                 ]
               }
             ],
@@ -147,7 +148,6 @@
                 {
                   "setNodeDisplayName [cp]": "Worker"
                 },
-                "migrateToDomain",
                 "setJavaMemoryOpts"
               ],
               "setupCtrl": [
