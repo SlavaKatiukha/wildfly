@@ -30,6 +30,14 @@
                     "setRedirectToController": {
                       "id": "${settings.masterId}"
                     }
+                  },
+                  {
+                    "forEach(wnode:event.response.nodes)": {
+                      "updateLink2CtrlConsole": {
+                        "nodeId": "${@wnode.id}",
+                        "ctrlNodeId": "${nodes.ctrl.first.id}"
+                      }
+                    }
                   }
                 ]
               },
