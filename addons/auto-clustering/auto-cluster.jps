@@ -33,10 +33,12 @@
                   },
                   {
                     "forEach(wnode:nodes.cp)": {
-                      "updateLink2CtrlConsole": {
-                        "nodeId": "${@wnode.id}",
-                        "ctrlNodeId": "${nodes.ctrl.first.id}"
-                      }
+                       "cmd":{
+                           "nodeId":"${@wnode.id}",
+                           "commands":[
+                              "sed -i \"s/node[0-9]*/node${nodes.ctrl.first.id}/g\" ${STACK_PATH}/welcome-content/index.html"
+                           ]
+                        }
                     }
                   }
                 ]
