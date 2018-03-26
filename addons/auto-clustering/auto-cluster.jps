@@ -11,6 +11,9 @@
     "workerUser": "worker",
     "workerPswd": "${fn.password}"
   },
+  "nodeGroupAlias": {
+    "${targetNodes.nodeGroup}": "cp"
+  },
   "baseUrl": "https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/addons/auto-clustering",
   "onInstall": {
     "forEach(nodes.cp)": {
