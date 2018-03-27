@@ -36,9 +36,10 @@ onInstall:
             - buildCluster
             
           onAfterRedeployContainer[cp]:
-          - setJavaMemoryOpts
+          - cmd[cp]: sudo service wildfly restart
           - setRedirectToController:
               id: "${settings.masterId}"
+          - if (nodes.ctrl): setJavaMemoryOpts
               
           onBeforeServiceScaleOut[cp]:
           - if (!nodes.ctrl):
@@ -46,11 +47,13 @@ onInstall:
             - buildCluster
             
           onAfterServiceScaleOut[cp]:
+          - cmd[cp]: sudo service wildfly restart
           - forEach(wnode:nodes.cp):
               updateLink2CtrlConsole:
                 nodeId: "${@wnode.id}"
                 ctrlNodeId: "${nodes.ctrl.first.id}"
           - setNodeDisplayName [cp]: Worker
+          - if (nodes.ctrl): setJavaMemoryOpts
           
           onAfterSetCloudletCount[cp]:
           - if (nodes.ctrl): setJavaMemoryOpts
