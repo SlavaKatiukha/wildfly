@@ -30,8 +30,7 @@ onInstall:
                 cmd:
                   nodeId: "${@wnode.id}"
                   commands:
-                  - sed -i "s#http://node.*/console#http://node${nodes.ctrl.first.id}-${env.domain}/console#g"
-                    ${STACK_PATH}/welcome-content/index.html
+                  - sed -i "s#http://node.*/console#http://node${nodes.ctrl.first.id}-${env.domain}/console#g" ${STACK_PATH}/welcome-content/index.html
           - if (!nodes.ctrl && nodes.cp.length > 1):
             - buildCluster
           onAfterRedeployContainer[cp]:
@@ -129,8 +128,7 @@ onInstall:
             updateLink2CtrlConsole:
               cmdViaApiById:
                 nodeId: "${this.nodeId}"
-                command: sed -i "s#/console#http://node${this.ctrlNodeId}-${env.domain}/console#g"
-                  ${STACK_PATH}/welcome-content/index.html
+                command: sed -i "s#href=\"/console\"#href=\"http://node${this.ctrlNodeId}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
             setRedirectToController:
               cmd[${this.id}]:
                 commands:
