@@ -36,7 +36,6 @@ onInstall:
             - buildCluster
             
           onAfterRedeployContainer[cp]:
-          - cmd[cp]: sudo service wildfly restart
           - setJavaMemoryOpts
           - setRedirectToController:
               id: "${settings.masterId}"
@@ -47,7 +46,6 @@ onInstall:
             - buildCluster
             
           onAfterServiceScaleOut[cp]:
-          - cmd[cp]: sudo service wildfly restart
           - forEach(wnode:nodes.cp):
               updateLink2CtrlConsole:
                 nodeId: "${@wnode.id}"
