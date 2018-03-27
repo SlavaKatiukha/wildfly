@@ -147,5 +147,5 @@ onAfterClone:
   appid: "${event.response.env.appid}"
   isImport: true
 - install:
-    jps: "${baseUrl}/auto-cluster.jps?_r=${fn.random}"
+    jps: "${baseUrl}/auto-cluster-yaml.jps?_r=${fn.random}"
     envName: "${event.response.env.envName}"
