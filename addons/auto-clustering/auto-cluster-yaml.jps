@@ -6,10 +6,13 @@ logo: https://goo.gl/epR2KT
 id: wildfly-cluster
 description:
   short: WildFly Auto-Cluster
+  
 globals:
   workerUser: worker
   workerPswd: "${fn.password}"
+  
 baseUrl: https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/addons/auto-clustering
+
 onInstall:
   forEach(nodes.cp):
     if (${@i.ismaster}):
@@ -31,15 +34,18 @@ onInstall:
                   - sed -i "s#http://node.*/console#http://node${nodes.ctrl.first.id}-${env.domain}/console#g" ${STACK_PATH}/welcome-content/index.html
           - if (!nodes.ctrl && nodes.cp.length > 1):
             - buildCluster
+            
           onAfterRedeployContainer[cp]:
           - cmd[cp]: sudo service wildfly restart
           - setJavaMemoryOpts
           - setRedirectToController:
               id: "${settings.masterId}"
+              
           onBeforeServiceScaleOut[cp]:
           - if (!nodes.ctrl):
             - saveDatasources
             - buildCluster
+            
           onAfterServiceScaleOut[cp]:
           - cmd[cp]: sudo service wildfly restart
           - forEach(wnode:nodes.cp):
@@ -47,20 +53,26 @@ onInstall:
                 nodeId: "${@wnode.id}"
                 ctrlNodeId: "${nodes.ctrl.first.id}"
           - setNodeDisplayName [cp]: Worker
+          
           onAfterSetCloudletCount[cp]:
           - if (nodes.ctrl): setJavaMemoryOpts
+          
           onAfterResetNodePassword[cp]:
           - if (nodes.ctrl): addAdminUser
+          
           actions:
             setJavaMemoryOpts:
               cmd[${nodes.cp.first.id}]:
               - sudo domainMemoryConfig
+              
             migrateToDomain:
               cmd[${nodes.cp.first.id}]:
               - sudo restoreDatasources; sudo migrateDeployments;
+              
             saveDatasources:
               cmd[${nodes.cp.first.id}]:
               - sudo saveDatasources;
+              
             buildCluster:
             - addNodes:
                 fixedCloudlets: "${nodes.cp.first.fixedCloudlets}"
@@ -113,13 +125,16 @@ onInstall:
             - cmd[cp]: sudo service wildfly restart
             - setRedirectToController:
                 id: "${settings.masterId}"
+                
             addWokerUser:
               cmdViaApiById:
                 nodeId: "${this.ctrlNodeId}"
                 command: "$STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD
                   2>&1"
+                  
             addAdminUser:
               script: "${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}"
+              
             linkLayers:
               forEach(wnode:nodes.cp):
               - api: env.control.LinkDockerNodes
@@ -127,23 +142,27 @@ onInstall:
                 targetNodeId: "${@wnode.id}"
                 groupAlias: ctrl
                 alias: ctrl
+                
             cmdViaApiById:
               api: env.control.ExecCmdById
               nodeId: "${this.nodeId}"
               commandList:
               - command: "${this.command}"
+              
             updateLink2CtrlConsole:
               cmdViaApiById:
                 nodeId: "${this.nodeId}"
                 command: sed -i "s#href=\"/console\"#href=\"http://node${this.ctrlNodeId}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
+                
             setRedirectToController:
               cmd[${this.id}]:
                 commands:
                 - sudo setAdminPanelRedirect
+                
 onAfterClone:
 - api: environment.control.SendEnvCreatedEmail
   appid: "${event.response.env.appid}"
   isImport: true
 - install:
-    jps: "${baseUrl}/auto-cluster-yaml.jps?_r=${fn.random}"
+    jps: "${baseUrl}/auto-cluster.jps?_r=${fn.random}"
     envName: "${event.response.env.envName}"
