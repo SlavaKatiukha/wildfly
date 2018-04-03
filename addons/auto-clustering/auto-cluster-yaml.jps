@@ -32,8 +32,7 @@ onInstall:
   
           onInstall:
           - if (nodes.ctrl && nodes.cp.length > 1):
-            - setRedirectToController:
-                id: ${settings.masterId}
+            - setRedirectToController
             - forEach(wnode:nodes.cp):
                 cmd:
                   nodeId: ${@wnode.id}
@@ -44,8 +43,7 @@ onInstall:
             
           onAfterRedeployContainer[cp]:
           - cmd[cp]: sudo service wildfly restart
-          - setRedirectToController:
-              id: ${settings.masterId}
+          - setRedirectToController
           - if (nodes.ctrl): setJavaMemoryOpts
               
           onBeforeServiceScaleOut[cp]:
@@ -130,8 +128,7 @@ onInstall:
                   nodeId: ${@wnode.id}
                   ctrlNodeId: ${this.ctrlNodeId}
             - cmd[cp]: sudo service wildfly restart
-            - setRedirectToController:
-                id: ${settings.masterId}
+            - setRedirectToController
                 
             addWokerUser:
               cmdViaApiById:
@@ -161,7 +158,7 @@ onInstall:
                 command: sed -i "s#href=\"/console\"#href=\"http://node${this.ctrlNodeId}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
                 
             setRedirectToController:
-              cmd[${this.id}]:
+              cmd[cp]:
                 commands:
                 - sudo setAdminPanelRedirect
                 
