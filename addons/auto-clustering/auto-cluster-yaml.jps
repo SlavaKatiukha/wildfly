@@ -24,7 +24,7 @@ onInstall:
           masterId: "${@i.id}"
         jps:
           type: update
-          name: Wildfly Auto-Cluster
+          name: WildFly Auto-Cluster
           envName: ${env.envName}
           
           nodeGroupAlias:
