@@ -17,11 +17,9 @@ nodeGroupAlias:
   ${targetNodes.nodeGroup}: cp
 
 onInstall:
-  forEach(nodes.cp):
-    if (${@i.ismaster}):
       install:
         settings:
-          masterId: "${@i.id}"
+          masterId: "${nodes.master.id}"
         jps:
           type: update
           name: WildFly Auto-Cluster
