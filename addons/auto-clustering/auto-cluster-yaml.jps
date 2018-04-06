@@ -138,10 +138,7 @@ onInstall:
           cmd[cp]: sudo setAdminPanelRedirect
                 
 onAfterClone:
-- api: environment.control.SendEnvCreatedEmail
-  appid: "${event.response.env.appid}"
-  isImport: true
-- install:
+  install:
     jps: ${baseUrl}/auto-cluster-yaml.jps?_r=${fn.random}
     envName: ${event.response.env.envName}
     nodeGroup: cp
