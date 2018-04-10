@@ -90,14 +90,14 @@ onInstall:
               WORKER_PASSWORD: ${globals.workerPswd}
               JBOSS_MODE: domain
               JELASTIC_EXPOSE: 4949
-  
-        - api: env.control.SetNodeGroupDisplayName
-          nodeGroup: ctrl
-          displayName: Domain Controller
-  
-        - api: env.control.SetNodeGroupDisplayName
-          nodeGroup: cp
-          displayName: Workers
+              
+        - if (jelastic.env.control.SetNodeGroupDisplayName):
+            - api: env.control.SetNodeGroupDisplayName
+              nodeGroup: ctrl
+              displayName: Domain Controller
+            - api: env.control.SetNodeGroupDisplayName
+              nodeGroup: cp
+              displayName: Workers
 
         - setupCtrl
         - addAdminUser
