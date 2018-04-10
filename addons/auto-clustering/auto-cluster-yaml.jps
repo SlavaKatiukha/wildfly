@@ -54,7 +54,8 @@ onInstall:
           updateLink2CtrlConsole:
             nodeId: ${@wnode.id}
             ctrlNodeId: ${nodes.ctrl.master.id}
-      - setNodeDisplayName[cp]: Worker
+      - if (jelastic.env.control.SetNodeGroupDisplayName):
+        - setNodeDisplayName[cp]: Workers
       - if (nodes.ctrl): setJavaMemoryOpts
   
       onAfterSetCloudletCount[cp]:
@@ -91,13 +92,11 @@ onInstall:
               JBOSS_MODE: domain
               JELASTIC_EXPOSE: 4949
   
-        - api: env.control.SetNodeGroupDisplayName
-          nodeGroup: ctrl
-          displayName: Domain Controller
+        - if (jelastic.env.control.SetNodeGroupDisplayName):
+          - setNodeDisplayName[cp]: Worker
   
-        - api: env.control.SetNodeGroupDisplayName
-          nodeGroup: cp
-          displayName: Workers
+        - if (jelastic.env.control.SetNodeGroupDisplayName):
+          - setNodeDisplayName[cp]: Workers
 
         - setupCtrl
         - addAdminUser
