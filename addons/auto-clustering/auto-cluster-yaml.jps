@@ -136,7 +136,7 @@ onInstall:
                   alias: "ctrl"
                 }
               }
-            };
+            }
   
         updateLink2CtrlConsole:
           cmd[${this.nodeId}]: sed -i "s#href=\"/console\"#href=\"http://node${nodes.ctrl.master.id}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
