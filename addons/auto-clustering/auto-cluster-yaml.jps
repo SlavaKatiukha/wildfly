@@ -127,7 +127,7 @@ onInstall:
           script: |
             return {
               result: 0,
-              onAfterReturn : {
+              onAfterReturn: {
                 "forEach(wnode:nodes.cp)": {
                   api: "env.control.LinkDockerNodes",
                   sourceNodeId: ${nodes.ctrl.master.id},
@@ -136,7 +136,7 @@ onInstall:
                   alias: "ctrl"
                 }
               }
-            }
+            };
   
         updateLink2CtrlConsole:
           cmd[${this.nodeId}]: sed -i "s#href=\"/console\"#href=\"http://node${nodes.ctrl.master.id}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
