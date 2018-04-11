@@ -108,8 +108,7 @@ onInstall:
         setupCtrl:
         - addWokerUser:
           ctrlNodeId: ${nodes.ctrl.master.id}
-        - linkLayers:
-            ctrlNodeId: ${nodes.ctrl.master.id}
+        - linkLayers
         - forEach(wnode:nodes.cp):
             updateLink2CtrlConsole:
               nodeId: ${@wnode.id}
@@ -124,21 +123,12 @@ onInstall:
           script: ${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}
   
         linkLayers:
-          script: |
-            { 
-              return {
-                result: 0,
-                onAfterReturn: {
-                  "forEach(wnode:nodes.cp)": {
-                    api: "env.control.LinkDockerNodes",
-                    sourceNodeId: ${nodes.ctrl.master.id},
-                    targetNodeId: ${@wnode.id},
-                    groupAlias: "ctrl",
-                    alias: "ctrl"
-                  }
-                }
-              }
-            };
+          forEach(wnode:nodes.cp):
+            api: env.control.LinkDockerNodes
+            sourceNodeId: ${nodes.ctrl.master.id}
+            targetNodeId: ${@wnode.id}
+            groupAlias: ctrl
+            alias: ctrl
   
         updateLink2CtrlConsole:
           cmd[${this.nodeId}]: sed -i "s#href=\"/console\"#href=\"http://node${nodes.ctrl.master.id}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
