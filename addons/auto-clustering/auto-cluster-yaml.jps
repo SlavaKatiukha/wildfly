@@ -106,8 +106,7 @@ onInstall:
         - setJavaMemoryOpts
 
         setupCtrl:
-        - addWokerUser:
-          ctrlNodeId: ${nodes.ctrl.master.id}
+        - addWokerUser
         - linkLayers:
             ctrlNodeId: ${nodes.ctrl.master.id}
         - forEach(wnode:nodes.cp):
