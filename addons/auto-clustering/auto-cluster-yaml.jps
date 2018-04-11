@@ -106,7 +106,8 @@ onInstall:
         - setJavaMemoryOpts
 
         setupCtrl:
-        - addWokerUser
+        - addWokerUser:
+          ctrlNodeId: ${nodes.ctrl.master.id}
         - linkLayers:
             ctrlNodeId: ${nodes.ctrl.master.id}
         - forEach(wnode:nodes.cp):
@@ -117,7 +118,7 @@ onInstall:
         - setRedirectToController
 
         addWokerUser:
-          cmd[ctrl]: $STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD 2>&1
+          cmd[${nodes.ctrl.master.id}]: $STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD 2>&1
               
         addAdminUser:
           script: ${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}
