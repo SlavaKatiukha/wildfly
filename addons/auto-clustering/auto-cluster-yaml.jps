@@ -106,8 +106,7 @@ onInstall:
         - setJavaMemoryOpts
 
         setupCtrl:
-        - addWokerUser:
-          ctrlNodeId: ${nodes.ctrl.master.id}
+        - addWokerUser
         - linkLayers
         - forEach(wnode:nodes.cp):
             updateLink2CtrlConsole:
@@ -125,7 +124,7 @@ onInstall:
         linkLayers:
           forEach(wnode:nodes.cp):
             api: env.control.LinkDockerNodes
-            sourceNodeId: ${nodes.ctrl.master.id}
+            sourceNodeId: ${nodes.ctrl.first.id}
             targetNodeId: ${@wnode.id}
             groupAlias: ctrl
             alias: ctrl
