@@ -107,7 +107,7 @@ onInstall:
 
         setupCtrl:
         - addWokerUser:
-            ctrlNodeId: ${nodes.ctrl.master.id}
+          ctrlNodeId: ${nodes.ctrl.master.id}
         - linkLayers:
             ctrlNodeId: ${nodes.ctrl.master.id}
         - forEach(wnode:nodes.cp):
@@ -118,9 +118,7 @@ onInstall:
         - setRedirectToController
 
         addWokerUser:
-          cmdViaApiById:
-            nodeId: ${this.ctrlNodeId}
-            command: $STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD 2>&1
+          cmd[${nodes.ctrl.master.id}]: $STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD 2>&1
               
         addAdminUser:
           script: ${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}
@@ -128,21 +126,13 @@ onInstall:
         linkLayers:
           forEach(wnode:nodes.cp):
             api: env.control.LinkDockerNodes
-            sourceNodeId: ${this.ctrlNodeId}
+            sourceNodeId: ${nodes.ctrl.master.id}
             targetNodeId: ${@wnode.id}
             groupAlias: ctrl
             alias: ctrl
-            
-        cmdViaApiById:
-            api: env.control.ExecCmdById
-            nodeId: ${this.nodeId}
-            commandList:
-            - command: ${this.command}
   
         updateLink2CtrlConsole:
-          cmdViaApiById:
-            nodeId: ${this.ctrlNodeId}
-            command: sed -i "s#href=\"/console\"#href=\"http://node${nodes.ctrl.first.id}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
+          cmd[${this.nodeId}]: sed -i "s#href=\"/console\"#href=\"http://node${nodes.ctrl.master.id}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
 
         setRedirectToController:
           cmd[cp]: sudo setAdminPanelRedirect
