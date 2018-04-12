@@ -118,7 +118,8 @@ onInstall:
         - setRedirectToController
 
         addWokerUser:
-          cmd[${nodes.ctrl.master.id}]: $STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD 2>&1
+          nodeGroup: ctrl
+          cmd: $STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD 2>&1
               
         addAdminUser:
           script: ${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}
