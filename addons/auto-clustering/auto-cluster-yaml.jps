@@ -140,7 +140,9 @@ onInstall:
             - command: ${this.command}
   
         updateLink2CtrlConsole:
-          cmd[${nodes.ctrl.first.id}]: sed -i "s#href=\"/console\"#href=\"http://node${nodes.ctrl.first.id}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
+          cmdViaApiById:
+            nodeId: ${this.ctrlNodeId}
+            command: sed -i "s#href=\"/console\"#href=\"http://node${nodes.ctrl.first.id}-${env.domain}/console\"#g" ${STACK_PATH}/welcome-content/index.html
 
         setRedirectToController:
           cmd[cp]: sudo setAdminPanelRedirect
