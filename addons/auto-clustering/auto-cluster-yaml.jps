@@ -108,10 +108,6 @@ onInstall:
         setupCtrl:
         - addWokerUser:
           ctrlNodeId: ${nodes.ctrl.master.id}
-        - forEach(wnode:nodes.cp):
-            updateLink2CtrlConsole:
-              nodeId: ${@wnode.id}
-              ctrlNodeId: ${nodes.ctrl.master.id}
         - cmd[cp]: sudo service wildfly restart
         - setRedirectToController
 
