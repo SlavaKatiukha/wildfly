@@ -54,6 +54,11 @@ addons:
       ${targetNodes.nodeGroup}: cp
 
     onInstall:
+    - setupCtrl
+    - addAdminUser
+    - setNodeDisplayName[cp]: Worker
+    - if (${settings.migrate}): migrateToDomain
+    - setJavaMemoryOpts
     - if (jelastic.env.control.SetNodeGroupDisplayName):
         - api: env.control.SetNodeGroupDisplayName
           nodeGroup: ctrl
@@ -61,12 +66,6 @@ addons:
         - api: env.control.SetNodeGroupDisplayName
           nodeGroup: cp
           displayName: Workers
-
-    - setupCtrl
-    - addAdminUser
-    - setNodeDisplayName[cp]: Worker
-    - if (${settings.migrate}): migrateToDomain
-    - setJavaMemoryOpts
 
 actions:
   setJavaMemoryOpts:
