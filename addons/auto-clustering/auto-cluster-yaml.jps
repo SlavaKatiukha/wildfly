@@ -97,6 +97,7 @@ actions:
 
   - installAddon:
       id: wildfly-build-cluster-addon
+      nodeGroup: ${targetNodes.nodeGroup}
       settings:
         migrate: ${this.migrate}
 
