@@ -51,7 +51,7 @@ addons:
   - id: wildfly-build-cluster-addon
 
     nodeGroupAlias:
-      ${targetNodes.nodeGroup}: cp
+      ${settings.nodeGroup}: cp
 
     onInstall:
     - setupCtrl
@@ -96,10 +96,10 @@ actions:
         JELASTIC_EXPOSE: 4949
 
   - installAddon:
-      id: wildfly-build-cluster-addon
-      nodeGroup: ${targetNodes.nodeGroup}
+      id: wildfly-build-cluster-addon      
       settings:
         migrate: ${this.migrate}
+        nodeGroup: ${targetNodes.nodeGroup}
 
   setupCtrl:
   - addWokerUser:
