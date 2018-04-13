@@ -98,6 +98,7 @@ actions:
 
   - installAddon:
       id: wildfly-build-cluster-addon
+      baseUrl: https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/addons/auto-clustering
       settings:
         migrate: ${this.migrate}
 
@@ -118,7 +119,7 @@ actions:
     cmd: $STACK_PATH/bin/add-user.sh $WORKER_USER $WORKER_PASSWORD 2>&1
 
   addAdminUser:
-    script: https://raw.githubusercontent.com/SiryjVyiko/wildfly/master/addons/auto-clustering/scripts/setAdminPassword.js?_r=${fn.random}
+    script: ${baseUrl}/scripts/setAdminPassword.js?_r=${fn.random}
 
   linkLayers:
     forEach (wnode:nodes.cp):
